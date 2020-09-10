@@ -1,0 +1,13 @@
+image: node:12.18.1
+clone:
+  depth: full
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Deploy to Firebase
+          deployment: production
+          script:
+            - npm run install:clean
+            - npm run build
+            - npm run deploy:bitbucket

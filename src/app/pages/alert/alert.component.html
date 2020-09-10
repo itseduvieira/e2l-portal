@@ -1,0 +1,6 @@
+<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-warning': message.type === 'error' }" class="alert-dismissible fade show ml-auto pull-right app-alert">
+    <i [ngClass]="{ 'fa fa-2x': message, 'fa-check-circle': message.type === 'success', 'fa-times-circle': message.type === 'error'}"></i>&nbsp; &nbsp;{{ message.text }}
+    <div class="progress" [style.height.px]="1">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</div>  

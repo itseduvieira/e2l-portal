@@ -1,0 +1,11 @@
+.app-alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    
+    top: 40px !important;
+    right: 40px !important;
+    z-index: 2000;
+  }
+  
