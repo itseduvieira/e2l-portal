@@ -27,10 +27,6 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('currentUser');
     
-    return true;
-    // return firebase.auth().signOut();
-    // this.angularFireAuth
-    //   .auth
-    //   .signOut();
+    return firebase.auth().signOut();
   }  
 }

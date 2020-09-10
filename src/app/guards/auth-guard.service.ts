@@ -19,6 +19,9 @@ export class AuthGuard implements CanActivate {
     return this.authService.userData.pipe(map(auth => {
       if (auth) {
 
+        this.user.email = auth.email;
+        this.user.token = auth.refreshToken;
+
         localStorage.setItem('currentUser', JSON.stringify(this.user));
         
         return true;
