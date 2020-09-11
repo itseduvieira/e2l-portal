@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install",
     "deploy": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:e2l-portal",
-    "deploy:bitbucket": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:e2l-portal --token $FIREBASE_TOKEN"
+    "deploy:bitbucket": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:e2l-portal --token=$FIREBASE_TOKEN"
   },
   "private": true,
   "dependencies": {

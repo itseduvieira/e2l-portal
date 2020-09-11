@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "e2l-portal",
+    "site": "eager2learn-d4bb0",
     "public": "dist",
     "ignore": [
       "firebase.json",
