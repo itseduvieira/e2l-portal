@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "e2l-portal",
     "public": "dist",
     "ignore": [
       "firebase.json",
