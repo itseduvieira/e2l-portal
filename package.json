@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install",
-    "deploy": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:e2l-portal",
-    "deploy:bitbucket": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:e2l-portal --token $FIREBASE_TOKEN"
+    "deploy": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:eager2learn-d4bb0",
+    "deploy:bitbucket": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:eager2learn-d4bb0 --token $FIREBASE_TOKEN"
   },
   "private": true,
   "dependencies": {
