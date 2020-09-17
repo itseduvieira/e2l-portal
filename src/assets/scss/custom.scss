@@ -1,7 +1,14 @@
 $card-container-width: 600px;
 
-$color-lilac: #A2376C;
-$color-purple: #5D3E4C;
+// $color-lilac: #A2376C;
+// $color-purple: #5D3E4C;
+$color-purple-dark-d: #180d13;
+$color-purple-dark-c: #13000c;
+
+$color-lilac: #E71283;
+$color-purple: #8C0455;
+$color-purple-dark: #5B0037;
+
 $color-blue: #058ED9;
 $color-beige: #F4EBD9;
 $color-black: #111511;
@@ -21,15 +28,15 @@ $color-black: #111511;
 }
 
 .card-bg {
-    background-image: url(https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80); 
-    background-size: cover; 
-    background-position: left top; 
+    background-image: url(https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);
+    background-size: cover;
+    background-position: left top;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 .card-welcome-header, .card-welcome-header {
-    background-size: cover; 
+    background-size: cover;
     background-position: center top;
 }
 
@@ -38,7 +45,7 @@ $color-black: #111511;
 }
 
 .card-form-bg {
-    min-height: 200px; 
+    min-height: 200px;
 }
 
 @media screen and (min-width: 568px) {
@@ -63,22 +70,22 @@ $color-black: #111511;
     scrollbar-width: none;
 }
 
-.buttom-primary {
+.button-primary {
     background-color: #058ED9;
     color: #FFF;
 }
 
 .bg-default {
-    background: #180d13 !important;
+    background: $color-purple-dark-d !important;
 }
 
 .fill-default {
-    fill: #180d13; 
+    fill: $color-purple-dark-d;
 }
 
 .header-default {
     // background: $color-purple;
-    background: linear-gradient(87deg, $color-lilac 0, $color-purple 100%) !important;
+    background: linear-gradient(87deg, $color-purple 0, $color-purple-dark 100%) !important;
 }
 
 .navbar-brand-img {
