@@ -1,5 +1,11 @@
 $card-container-width: 600px;
 
+$color-lilac: #A2376C;
+$color-purple: #5D3E4C;
+$color-blue: #058ED9;
+$color-beige: #F4EBD9;
+$color-black: #111511;
+
 .card-navbar-expand-md {
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -58,18 +64,23 @@ $card-container-width: 600px;
 }
 
 .buttom-primary {
-    background-color: #407BFF;
+    background-color: #058ED9;
     color: #FFF;
 }
 
 .bg-default {
-    background: #FFF !important;
+    background: #180d13 !important;
 }
 
 .fill-default {
-    fill: #FFF;
+    fill: #180d13; 
 }
 
 .header-default {
-    background: #000000;
+    // background: $color-purple;
+    background: linear-gradient(87deg, $color-lilac 0, $color-purple 100%) !important;
+}
+
+.navbar-brand-img {
+    height: 50px !important;
 }
