@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     }).catch(err => {
       switch(err.code) {
         case 'auth/user-not-found': {
-            this.alertService.error("Usuário não foi encontrado.");
+            this.alertService.error("Usuário e/ou senha incorretos.");
             this.loading = false;
             break;
         }
