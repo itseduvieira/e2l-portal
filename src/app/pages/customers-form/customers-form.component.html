@@ -17,128 +17,96 @@
         </div>
         <div class="card-body">
 
-          <form [formGroup]="formClient">
+          <form [formGroup]="formClient" (ngSubmit)="onSubmit()">
             <h6 class="heading-small text-muted mb-4">Dados do usuário</h6>
             <div class="pl-lg-4 pr-lg-4 mb-3">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="name">Nome</label>
-                    <!-- <input type="text" id="input-name" class="form-control is-invalid"
-                      placeholder="João da Silva" [(ngModel)]="selected.name"> -->
-                    <input type="text" id="input-name" class="form-control form-control-alternative"
-                      placeholder="João da Silva" formControlName="name" [(ngModel)]="selected.name"/>
+                    <label class="form-control-label" for="name">Nome *</label>
+                    <input type="text" class="form-control form-control-alternative"
+                      placeholder="João da Silva" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"/>
+
+                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required">O nome é obrigatório.</div>
+                      </div>
                   </div>
                 </div>
 
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-phone">Celular</label>
-                    <input type="text" id="input-phone" class="form-control form-control-alternative"
-                      placeholder="+55 (11) 98765 4321" (blur)="blurPhone()" (focus)="focusPhone()" 
-                      (keydown)="digitOnly($event)" (keyup)="mask($event)" formControlName="phone" [(ngModel)]="selected.phone" />
+                    <label class="form-control-label" for="phone">Celular</label>
+                    <input type="text" class="form-control form-control-alternative"
+                      placeholder="(11) 98765 4321" (blur)="blurPhone()" (focus)="focusPhone()" 
+                      (keydown)="digitOnly($event)" (keyup)="mask($event)" formControlName="phone" [(ngModel)]="phoneMask"/>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-7">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-product">Produto</label>
-                    <input type="text" id="input-product" class="form-control form-control-alternative"
-                      placeholder="Windows XP" formControlName="product" [(ngModel)]="selected.product">
+                    <label class="form-control-label" for="email">Email *</label>
+                    <input type="email" class="form-control form-control-alternative"
+                      placeholder="sistema@exemplo.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">O email é obrigatório.</div>
+                      <div *ngIf="f.email.errors.email">Digite um email válido.</div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-5">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-plan">Descrição do plano
-                      <small>(opcional)</small></label>
-                    <input type="text" id="input-plan" class="form-control form-control-alternative" placeholder="Premium" 
-                    formControlName="plan" [(ngModel)]="selected.plan" />
+                    <label class="form-control-label" for="levelAccess">Nível de acesso *</label>
+                    <select class="form-control form-control-alternative" formControlName="levelAccess"
+                    [ngClass]="{ 'is-invalid': submitted && f.levelAccess.errors }">
+                      <option value="admin">Administrador</option>
+                      <option value="student">Estudante</option>
+                      <option value="parent">Pais</option>
+                      <option value="school">Escola</option>
+                    </select>
+
+                    <div *ngIf="submitted && f.levelAccess.errors" class="invalid-feedback">
+                      <div *ngIf="f.levelAccess.errors.required">O nível de acesso é obrigatório.</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <h6 class="heading-small text-muted mb-4">Condições de pagamento</h6>
-            <div class="pl-lg-4 pr-lg-4">
               <div class="row">
-                <!-- <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-frequency">Periodicidade</label>
-                    <select id="input-frequency" class="form-control form-control-alternative">
-                      <option value="1">Mensal</option>
-                      <option value="2">Quinzenal</option>
-                      <option value="3">Semanal</option>
-                    </select>
-                  </div>
-                </div> -->
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-frequency">Dia da cobrança</label>
-                    <select id="input-frequency" class="form-control form-control-alternative" 
-                    formControlName="day" [(ngModel)]="selected.day">
-                      <option value="7">Todo dia 7</option>
-                      <option value="15">Todo dia 15</option>
-                      <option value="20">Todo dia 20</option>
-                      <option value="30">Todo dia 30</option>
-                    </select>
+                    <label class="form-control-label" for="password">Senha *</label>
+                    <input type="password" id="input-product" class="form-control form-control-alternative"
+                     formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+
+                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">A senha é obrigatória.</div>
+                      <div *ngIf="f.password.errors.minlength">A senha deverá ter mais de 6 caracteres.</div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="form-group">
-                    <label class="form-control-label" for="input-type">Tipos aceitos</label>
-                    <select id="input-type" class="form-control form-control-alternative" formControlName="type" [(ngModel)]="selected.type">
-                      <option value="1">Débito ou Crédito</option>
-                      <option value="2">Apenas Crédito</option>
-                      <option value="3">Apenas Débito</option>
-                    </select>
+                    <label class="form-control-label" for="confirmPassword">Confirmar Senha *</label>
+                    <input type="password" class="form-control form-control-alternative"
+                    formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"/>
+
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.confirmPassword.errors.required">A senha é obrigatória.</div>
+                      <div *ngIf="f.confirmPassword.errors.minlength">A senha deverá ter mais de 6 caracteres.</div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-frequency">Tipo de cobrança</label>
-                    <select id="input-frequency" class="form-control form-control-alternative" formControlName="frequency" [(ngModel)]="selected.frequency">
-                      <option value="1">Valor fixo, cobrado mensalmente</option>
-                      <option value="2">Valor variável, cobrado mensalmente</option>
-                    </select>
-                  </div>
-                </div>
-                <div *ngIf="selected.frequency === '1'" class="col-lg-4">
-                  <div class="form-group">s
-                    <label class="form-control-label" for="input-value">Valor fixo</label>
-                    <input type="text" id="input-value" class="form-control form-control-alternative"
-                      placeholder="R$ 0,00" formControlName="val" [(ngModel)]="selected.val" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-frequency">Tempo de contrato</label>
-                    <select id="input-frequency" class="form-control form-control-alternative">
-                      <option value="1">Indefinido</option>
-                      <option value="2">2 anos</option>
-                      <option value="3">1 ano</option>
-                      <option value="4">6 meses</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- <div class="col-lg-8">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-frequency">Renovação automática</label>
-                    <select id="input-frequency" class="form-control form-control-alternative">
-                      <option value="1">Sim, o contrato será renovado automaticamente</option>
-                      <option value="2">Não, as condições serão alteradas após vencimento</option>
-                    </select>
-                  </div>
-                </div> -->
-              </div>
-              <button class="btn btn-icon btn-3 btn-success btn-block mt-3 mb-4" (click)="validate() && save()"
-                type="button">
-                <span class="btn-inner--icon"><i class="ni ni-check-bold"></i></span>
+
+              <button class="btn btn-icon btn-3 button-primary btn-block mt-3 mb-4" type="submit">
+                <span class="btn-inner--icon">
+                  <i *ngIf="!loading" class="ni ni-check-bold"></i>
+                  <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-fw"></i>
+                </span>
                 <span class="btn-inner--text">Salvar</span>
               </button>
+
             </div>
           </form>
 

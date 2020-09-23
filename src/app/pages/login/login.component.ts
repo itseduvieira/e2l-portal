@@ -48,13 +48,30 @@ export class LoginComponent implements OnInit {
     this.loading = true; 
 
     this.authenticationService.login(this.f.email.value, this.f.password.value)
-      .then(() => {
-              this.router.navigate(['/dashboard']);
-          })
-      .catch(err => {
-              this.alertService.error(err);
-              this.loading = false;
-          });
-
+    .then(() => {
+            this.router.navigate(['/dashboard']);
+    }).catch(err => {
+      switch(err.code) {
+        case 'auth/user-not-found': {
+            this.alertService.error("Usuário não foi encontrado.");
+            this.loading = false;
+            break;
+        }
+        case 'auth/wrong-password': {
+            this.alertService.error("Usuário e/ou senha incorretos.");
+            this.loading = false;
+            break;
+        }
+        case 'auth/invalid-user-token': {
+          this.alertService.error("Sua sessão expirou. Efetue o login novamente.");
+          this.loading = false;
+          break;
+      }
+          default: {
+            this.alertService.error("Erro ao realizar o login do usuário. Tente novamente.");
+            this.loading = false;
+        }
+      }
+    }) // END CATCH
   }
 }

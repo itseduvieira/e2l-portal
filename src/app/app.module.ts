@@ -28,6 +28,7 @@ import { AlertService } from './services/alert.service';
 import { AlertComponent } from './pages/alert/alert.component';
 import { ErrorInterceptor } from './helpers/error.inteceptor';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { UserService } from './services/user.service';
 
 registerLocaleData(ptBr);
 
@@ -50,6 +51,7 @@ registerLocaleData(ptBr);
     AngularFireAuth,
     DatabaseService,
     AlertService,
+    UserService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt' }

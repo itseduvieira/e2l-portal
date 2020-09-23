@@ -18,9 +18,10 @@ export class AuthGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
     return this.authService.userData.pipe(map(auth => {
       if (auth) {
-
+        this.user.displayName = auth.displayName;
         this.user.email = auth.email;
-        this.user.token = auth.refreshToken;
+        this.user.uid = auth.uid;
+        this.user.phoneNumber = auth.phoneNumber;
 
         localStorage.setItem('currentUser', JSON.stringify(this.user));
         

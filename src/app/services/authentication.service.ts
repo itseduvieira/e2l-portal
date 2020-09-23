@@ -18,10 +18,6 @@ export class AuthenticationService {
 
   login(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(() => { })
-      .catch(err => {
-      console.log(err);
-    })
   }
 
   logout() {

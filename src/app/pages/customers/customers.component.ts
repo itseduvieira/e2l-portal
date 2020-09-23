@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
 
 import Customer from '../../models/customer.model';
+import { UserService } from 'src/app/services/user.service';
+import { first } from 'rxjs/operators';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-customers',
@@ -11,28 +14,29 @@ import Customer from '../../models/customer.model';
 })
 export class CustomersComponent implements OnInit {
   selected: Customer;
+  users: User[] = [];
+  loading = true;
 
-  constructor(private database: DatabaseService, private router: Router) { }
+  constructor(private router: Router,
+              private userService: UserService) {}
 
   ngOnInit() {
-    
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this.userService.getAllUsers()
+      .pipe(first())
+        .subscribe(users => {
+          this.users = users;
+
+          this.loading = false;
+          console.log(this.users)
+        });
   }
 
   newCustomer() {
-    this.router.navigate(['/customers/new'], { state: {
-      selected: new Customer()
-    } })
+    this.router.navigate(['/customers/new'])
     .then(resolved => {  });
-  }
-
-  select() {
-    let customer = new Customer();
-    customer.name = "Eduardo";
-    customer.isNew = false;
-
-    this.router.navigate(['/customers/1234'], { state: {
-      selected: customer
-    } })
-    .then(resolved => { });
   }
 }

@@ -1,7 +1,10 @@
 import { Role } from "./role.model";
 
 export class User {
-    public email: string;
-    public token: string;
-    public role: Role;
+    displayName: string;
+    email: string;
+    password: string;
+    phoneNumber: string;
+    uid?: string;
+    role: Role;
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // baseUrl: '',
+  apiUrl: 'https://e2l-api.herokuapp.com',
   firebaseConfig: {
     apiKey: "AIzaSyAyMGmxJ8tpObKj-GIP0bZaC4eQ0ju6im0",
     authDomain: "eager2learn-d4bb0.firebaseapp.com",

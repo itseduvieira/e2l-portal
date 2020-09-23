@@ -26,68 +26,35 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">Project</th>
-                <th scope="col">Budget</th>
-                <th scope="col">Status</th>
-                <th scope="col">Users</th>
-                <th scope="col">Completion</th>
-                <th scope="col"></th>
+                <th scope="col" style="width:30%">Nome</th>
+                <th scope="col" style="width:30%">Email</th>
+                <th scope="col" style="width:30%">Nivel de Acesso</th>
+                <th scope="col" style="width:10%"></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row" (click)="select()">
-                  <div class="media align-items-center">
-                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                    </a>
-                    <div class="media-body">
-                      <span class="mb-0 text-sm">Argon Design System</span>
-                    </div>
-                  </div>
+              <td *ngIf="loading" colspan="2" class="text-right py-5 pr-6">
+                <i class="fa fa-spinner fa-pulse fa-fw fa-4x"></i>
+              </td>
+
+              <tr *ngFor="let user of users">
+                <th scope="row">
+                  {{ user.displayName }}
                 </th>
                 <td>
-                  $2,500 USD
+                  {{ user.email }}
                 </td>
-                <td>
-                  <span class="badge badge-dot mr-4">
-                    <i class="bg-warning"></i> pending
-                  </span>
+                <td *ngIf="user.customClaims.admin">
+                  Administrador
                 </td>
-                <td>
-                  <div class="avatar-group">
-                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip"
-                      data-original-title="Ryan Tompson">
-                      <img alt="Image placeholder" src="../assets/img/theme/team-1-800x800.jpg"
-                        class="rounded-circle">
-                    </a>
-                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip"
-                      data-original-title="Romina Hadid">
-                      <img alt="Image placeholder" src="../assets/img/theme/team-2-800x800.jpg"
-                        class="rounded-circle">
-                    </a>
-                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip"
-                      data-original-title="Alexander Smith">
-                      <img alt="Image placeholder" src="../assets/img/theme/team-3-800x800.jpg"
-                        class="rounded-circle">
-                    </a>
-                    <a href="javascript:void(0)" class="avatar avatar-sm" data-toggle="tooltip"
-                      data-original-title="Jessica Doe">
-                      <img alt="Image placeholder" src="../assets/img/theme/team-4-800x800.jpg"
-                        class="rounded-circle">
-                    </a>
-                  </div>
+                <td *ngIf="user.customClaims.student">
+                  Estudante
                 </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <span class="mr-2">60%</span>
-                    <div>
-                      <div class="progress">
-                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                          aria-valuemax="100" style="width: 60%;"></div>
-                      </div>
-                    </div>
-                  </div>
+                <td *ngIf="user.customClaims.school">
+                  Escola
+                </td>
+                <td *ngIf="user.customClaims.parent">
+                  Pais
                 </td>
                 <td class="text-right">
                   <div ngbDropdown placement="bottom-right">

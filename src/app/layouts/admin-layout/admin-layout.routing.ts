@@ -6,10 +6,6 @@ import { CustomersFormComponent } from 'src/app/pages/customers-form/customers-f
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'detail',        component: DetailRegisterComponent }
-    // { path: 'user-profile',   component: UserProfileComponent },
-    // { path: 'plans',          component: PlansComponent },
-    // { path: 'revenue',           component: RevenueComponent },
-    // { path: 'customers',         component: CustomersComponent },
-    // { path: 'customers/new',   component: CustomersFormComponent }
+    { path: 'customers',         component: CustomersComponent },
+    { path: 'customers/new',   component: CustomersFormComponent }
 ];

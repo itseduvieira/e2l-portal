@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DetailRegisterComponent } from '../../pages/detail-register/detail-register.component';
+import { UserService } from 'src/app/services/user.service';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -32,7 +33,6 @@ import { DetailRegisterComponent } from '../../pages/detail-register/detail-regi
     ReactiveFormsModule,
     Ng2SearchPipeModule
   ],
-  // providers: [AuthGuard],
   declarations: [
     DashboardComponent,
     UserProfileComponent,

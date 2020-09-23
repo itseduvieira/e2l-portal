@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
-import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
-import { DatabaseService } from '../../services/database.service';
-import Customer from 'src/app/models/customer.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
+import { UserService } from 'src/app/services/user.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-customers-form',
@@ -11,84 +13,77 @@ import Customer from 'src/app/models/customer.model';
 })
 
 export class CustomersFormComponent implements OnInit {
-  validated: boolean = false;
-  selected = new Customer();
   formClient: FormGroup;
+  user = new User();
+  loading = false;
+  submitted = false;
+  phoneMask = '';
 
-  constructor(private database: DatabaseService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute) {
-
-    // this.router.events.pipe(
-    //   filter(e => e instanceof NavigationStart),
-    //   map(() => this.router.getCurrentNavigation().extras.state)
-    // ).subscribe(data => {
-    //   if(data) {
-    //     this.selected = data.selected;
-    //   }
-    // });
-
-    //  filter(e => e instanceof NavigationStart);
-    //  const state = this.router.getCurrentNavigation().extras.state.selected;
-    //  if (state.isNew === false) {
-    //   this.selected = state;
-    //  }
-
-  }
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private userService: UserService,
+              private alertService: AlertService) {}
 
   ngOnInit() {
-    // console.log(this.route.data);
-    // this.route.data.subscribe(data => console.log(data));
-    // this.selected = history.state.selected;
 
     this.formClient = this.formBuilder.group({
-      name: [''],
+      name: ['', Validators.required],
       phone: [''],
-      product: [''],
-      plan: [''],
-      day: [''],
-      type: [''],
-      frequency: [''],
-      val: ['']
+      email: ['', [Validators.required, Validators.email]],
+      levelAccess: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
-
-    // this.formClient.patchValue({
-    //   name: this.selected.name,
-    //   phone: this.selected.phone,
-    //   product: this.selected.product,
-    //   plan: this.selected.plan,
-    //   day: this.selected.day,
-    //   type: this.selected.type,
-    //   frequency: this.selected.frequency,
-    //   val: this.selected.val
-    // });
-
   }
 
   get f() {return this.formClient.controls};
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.f.password.value !== this.f.confirmPassword.value) {
+        this.alertService.error('As senhas precisam ser iguais.');
+        return;
+    }
+
+    if (this.formClient.invalid) {
+      return
+    }
+
+    this.user.displayName = this.f.name.value;
+    this.user.email = this.f.email.value;
+    this.user.phoneNumber = this.f.phone.value.replace(/[() ]/g, '');
+    this.user.role = this.f.levelAccess.value;
+    this.user.password = this.f.password.value;
+
+    this.loading = true;
+
+    this.userService.createUser(this.user)
+      .pipe()
+        .subscribe(() => {
+          this.submitted = false;
+          this.formClient.reset();
+          
+          this.loading = false;
+
+          this.alertService.success('Usuário cadastrado com sucesso.', true);
+        }, err => {
+          this.alertService.error(err);
+        })
+  }
 
   back() {
     this.router.navigateByUrl('/customers')
       .then(resolved => {  });
   }
 
-  validate() {
-    return true;
-  }
-
-  save() {
-    // this.database.save(this.selected)
-    //   .subscribe(document => this.back, error => console.error(error));
-    console.log(this.formClient.value);
-  }
-
   blurPhone() {
-    this.selected.phone = this.selected.phone.trim().length < 18 ? '' : this.selected.phone;
+    this.phoneMask = this.phoneMask.trim().length < 18 ? '' : this.phoneMask;
   }
 
   focusPhone() {
-    this.selected.phone = this.selected.phone.trim() === '' ? '+55 (' : this.selected.phone;
+    this.phoneMask = this.phoneMask.trim() === '' ? '+55 (' : this.phoneMask;
   }
 
   digitOnly(e) {
@@ -110,7 +105,7 @@ export class CustomersFormComponent implements OnInit {
     // Ensure that it is a number and stop the keypress
     if (
       (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &&
-      (e.keyCode < 96 || e.keyCode > 105) || this.selected.phone.length === 19
+      (e.keyCode < 96 || e.keyCode > 105) || this.phoneMask.length === 19
     ) {
       e.preventDefault();
     }
@@ -119,22 +114,22 @@ export class CustomersFormComponent implements OnInit {
   mask(e) {
     if(e.keyCode === 13) {
       // this.check();
-    } else if(this.selected.phone.length === 7 && e.keyCode !== 8) {
-      this.selected.phone += ') ';
-    } else if(this.selected.phone.length === 13 && e.keyCode !== 8) {
-      this.selected.phone += ' ';
-    } else if(this.selected.phone.length === 19 && e.keyCode !== 8) {
-      let newPhone = this.selected.phone.replace(/\s/g,'');
+    } else if(this.phoneMask.length === 7 && e.keyCode !== 8) {
+      this.phoneMask += ') ';
+    } else if(this.phoneMask.length === 13 && e.keyCode !== 8) {
+      this.phoneMask += ' ';
+    } else if(this.phoneMask.length === 19 && e.keyCode !== 8) {
+      let newPhone = this.phoneMask.replace(/\s/g,'');
       newPhone = newPhone.substring(0, 3) + ' ' + newPhone.substring(3, newPhone.length);
       newPhone = newPhone.substring(0, 8) + ' ' + newPhone.substring(8, newPhone.length);
       newPhone = newPhone.substring(0, 14) + ' ' + newPhone.substring(14, newPhone.length);
-      this.selected.phone = newPhone;
-    } else if(this.selected.phone.length === 18 && e.keyCode === 8) {
-      let newPhone = this.selected.phone.replace(/\s/g,'');
+      this.phoneMask = newPhone;
+    } else if(this.phoneMask.length === 18 && e.keyCode === 8) {
+      let newPhone = this.phoneMask.replace(/\s/g,'');
       newPhone = newPhone.substring(0, 3) + ' ' + newPhone.substring(3, newPhone.length);
       newPhone = newPhone.substring(0, 8) + ' ' + newPhone.substring(8, newPhone.length);
       newPhone = newPhone.substring(0, 13) + ' ' + newPhone.substring(13, newPhone.length);
-      this.selected.phone = newPhone;
+      this.phoneMask = newPhone;
     }
   }
 }
