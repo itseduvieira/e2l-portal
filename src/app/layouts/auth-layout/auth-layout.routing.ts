@@ -7,5 +7,5 @@ import { ForgetPasswordComponent } from 'src/app/pages/password/forget-password.
 export const AuthLayoutRoutes: Routes = [
     { path: 'login',          component: LoginComponent },
     { path: 'register',       component: RegisterComponent },
-    { path: 'password',       component: ForgetPasswordComponent}
+    { path: 'recover',       component: ForgetPasswordComponent}
 ];

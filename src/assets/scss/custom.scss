@@ -5,9 +5,9 @@ $card-container-width: 600px;
 $color-purple-dark-d: #180d13;
 $color-purple-dark-c: #13000c;
 
-$color-lilac: #E71283;
-$color-purple: #8C0455;
-$color-purple-dark: #5B0037;
+$color-lilac: #653A50;
+$color-purple: #61364C;
+$color-purple-dark: #4b2538;
 
 $color-blue: #058ED9;
 $color-beige: #F4EBD9;
@@ -76,16 +76,16 @@ $color-black: #111511;
 }
 
 .bg-default {
-    background: $color-purple-dark-d !important;
+    background: $color-purple-dark !important;
 }
 
 .fill-default {
-    fill: $color-purple-dark-d;
+    fill: $color-purple-dark;
 }
 
 .header-default {
     // background: $color-purple;
-    background: linear-gradient(87deg, $color-purple 0, $color-purple-dark 100%) !important;
+    background: linear-gradient(87deg, $color-lilac 0, $color-purple 100%) !important;
 }
 
 .navbar-brand-img {
