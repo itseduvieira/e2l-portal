@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-password',
@@ -15,7 +17,8 @@ export class ForgetPasswordComponent implements OnInit{
 
     constructor(
         private formBuilder: FormBuilder,
-        private alertService: AlertService) {}
+        private alertService: AlertService,
+        private userService: UserService) {}
 
     ngOnInit() {
         this.passwordForm = this.formBuilder.group({
@@ -34,6 +37,19 @@ export class ForgetPasswordComponent implements OnInit{
 
         this.loading = true;
 
-        this.alertService.success('Email enviado com sucesso', true);
+        this.userService.resetPassword(this.f.email.value)
+            .pipe(first())
+                .subscribe(() => {
+                    this.loading = false;
+                    this.alertService.success('Se o email existir, haverá um link para redifinição na sua caixa de entrada.', true);
+
+                    this.passwordForm.reset();
+                    this.submitted = false;
+                }, err => {
+                    this.loading = false;
+                    this.alertService.error(err);
+                })
+
+        
     }
 }
