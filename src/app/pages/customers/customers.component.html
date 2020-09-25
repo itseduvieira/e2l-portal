@@ -62,10 +62,27 @@
                       <i class="fas fa-ellipsis-v"></i>
                     </a>
                     <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="javascript:void(0)">Action</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                      <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
+                      <a class="dropdown-item" (click)="open(classic,'' , '')">Apagar usuário</a>
                     </div>
+                    <!-- MODAL EXCLUIR CADASTRO -->
+                    <ng-template #classic let-c="close" let-d="dismiss">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-title-default">Excluir cadastro</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Você tem certeza que deseja excluir o usuário {{ user.displayName }}? A ação não pode ser desfeita.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn button-primary" (click)="c('Close click')" (click)="deleteUser(user.uid)">Excluir</button>
+                          <button type="button" class="btn btn-link ml-auto" data-dismiss="modal" (click)="c('Close click')">Cancelar</button>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <!-- FIM MODAL EXCLUIR CADASTRO -->
                   </div>
                 </td>
               </tr>

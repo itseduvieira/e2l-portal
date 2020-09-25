@@ -95,3 +95,13 @@ $color-black: #111511;
 .navbar-brand-dash {
     max-height: 70px !important;
 }
+
+.btn-link {
+    color: $color-blue !important;
+}
+
+.dropdown-item:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    background-color: $color-blue !important;
+}

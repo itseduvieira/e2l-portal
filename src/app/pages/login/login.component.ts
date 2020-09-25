@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private alertService: AlertService) {}
+    private alertService: AlertService,
+    private userService: UserService) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -48,8 +51,18 @@ export class LoginComponent implements OnInit {
     this.loading = true; 
 
     this.authenticationService.login(this.f.email.value, this.f.password.value)
-    .then(() => {
+    .then(data => {
             this.router.navigate(['/dashboard']);
+
+            if(!data.user.emailVerified) {
+              this.userService.verifiedEmail(data.user.email)
+                .pipe(first())
+                  .subscribe(() => {
+                    this.alertService.success("Email de verificação foi enviado com sucesso!");
+                  }, err => {
+                    this.alertService.error(err)
+                  })
+            }
     }).catch(err => {
       switch(err.code) {
         case 'auth/user-not-found': {
