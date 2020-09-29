@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openXl(content) {
-    this.modalService.open(content, { size: 'xl', backdrop: 'static' });
+    this.modalService.open(content, { size: 'lg', backdrop: 'static' });
   }
 
   loadAllUsers() {

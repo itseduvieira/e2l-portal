@@ -18,7 +18,7 @@ export class UserService {
     }
 
     getUserByUid(uid) {
-        return this.http.get<User[]>(`${environment.apiUrl}/user/`+ uid);
+        return this.http.get<User>(`${environment.apiUrl}/user/`+ uid);
     }
 
     verifiedEmail(email) {
