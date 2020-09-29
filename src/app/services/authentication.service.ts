@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +22,15 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     
     return firebase.auth().signOut();
-  }  
+  }
+
+  forgetPassword(emailAddress) {
+    return firebase.auth().sendPasswordResetEmail(emailAddress)
+  }
+
+  verifiedEmail(emailAddress) {
+    firebase.auth().languageCode = 'pt_BR';
+  
+    return firebase.auth().currentUser.sendEmailVerification(emailAddress)
+  }
 }

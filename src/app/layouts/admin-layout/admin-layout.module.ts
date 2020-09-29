@@ -1,25 +1,22 @@
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
+import { QRCodeModule } from 'angularx-qrcode';
 
-import { AdminLayoutRoutes } from './admin-layout.routing';
+import { CustomersFormComponent } from '../../pages/customers-form/customers-form.component';
+import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { CustomersComponent } from '../../pages/customers/customers.component';
-import { CustomersFormComponent } from '../../pages/customers-form/customers-form.component';
 import { RevenueComponent } from '../../pages/revenue/revenue.component';
-import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { PlansComponent } from '../../pages/plans/plans.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminLayoutRoutes } from './admin-layout.routing';
 
-// import { AuthGuard } from "../../guards/auth-guard.service";
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { QRCodeModule } from 'angularx-qrcode';
-import { DetailRegisterComponent } from '../../pages/detail-register/detail-register.component';
-import { UserService } from 'src/app/services/user.service';
-// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -39,8 +36,7 @@ import { UserService } from 'src/app/services/user.service';
     PlansComponent,
     CustomersComponent,
     CustomersFormComponent,
-    RevenueComponent,
-    DetailRegisterComponent
+    RevenueComponent
   ]
 })
 

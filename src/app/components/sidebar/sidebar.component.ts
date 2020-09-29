@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 import { AuthenticationService } from '../../services/authentication.service';
 
@@ -9,9 +10,14 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'ni-chart-bar-32 text-blue', class: '' },
-    { path: '/customers', title: 'Administração',  icon:'ni-briefcase-24 text-blue', class: '' }
+    { path: '/customers', title: 'Usuários',  icon:'ni-circle-08 text-blue', class: '' }
+];
+
+export const ROUTES2: RouteInfo[] = [
+  { path: '/dashboard', title: 'Dashboard',  icon: 'ni-chart-bar-32 text-blue', class: '' }
 ];
 
 @Component({
@@ -23,11 +29,22 @@ export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
   public isCollapsed = true;
+  public currentUser: any;
+  public user: User;
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService) { 
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.user = this.currentUser;
+
+    if (this.currentUser.customClaims.admin) {
+      this.menuItems = ROUTES.filter(menuItem => menuItem);
+    } else {
+      this.menuItems = ROUTES2.filter(menuItem => menuItem);
+    }
+    
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
    });

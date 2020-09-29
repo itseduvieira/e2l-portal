@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
 import { UserService } from 'src/app/services/user.service';
 import { first } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
     selector: 'app-password',
@@ -18,7 +19,7 @@ export class ForgetPasswordComponent implements OnInit{
     constructor(
         private formBuilder: FormBuilder,
         private alertService: AlertService,
-        private userService: UserService) {}
+        private authService: AuthenticationService) {}
 
     ngOnInit() {
         this.passwordForm = this.formBuilder.group({
@@ -37,18 +38,29 @@ export class ForgetPasswordComponent implements OnInit{
 
         this.loading = true;
 
-        this.userService.resetPassword(this.f.email.value)
-            .pipe(first())
-                .subscribe(() => {
-                    this.loading = false;
-                    this.alertService.success('Se o email existir, haverá um link para redifinição na sua caixa de entrada.', true);
+        this.authService.forgetPassword(this.f.email.value)
+            .then(() => {
+                this.loading = false;
+                this.alertService.success('Se o email existir, haverá um link para redifinição na sua caixa de entrada.', true);
 
-                    this.passwordForm.reset();
-                    this.submitted = false;
-                }, err => {
-                    this.loading = false;
-                    this.alertService.error(err);
-                })
+                this.passwordForm.reset();
+                this.submitted = false;
+            }).catch(err => {
+                this.loading = false;
+                switch(err.code) {
+                    case 'auth/user-not-found': {
+                        this.alertService.error("Se o email existir, haverá um link para redifinição na sua caixa de entrada.");
+                        console.log(err);
+                        this.loading = false;
+                        break;
+                    } 
+                    
+                    default: {
+                      this.alertService.error("Erro ao realizar o envio do email de recuperação. Tente novamente.");
+                      this.loading = false;
+                    }
+                  }
+            })
 
         
     }

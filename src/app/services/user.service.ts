@@ -17,6 +17,10 @@ export class UserService {
         return this.http.get<User[]>(`${environment.apiUrl}/user`);
     }
 
+    getUserByUid(uid) {
+        return this.http.get<User[]>(`${environment.apiUrl}/user/`+ uid);
+    }
+
     verifiedEmail(email) {
         return this.http.get<User[]>(`${environment.apiUrl}/user/verificationEmail`, email);
     }

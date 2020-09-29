@@ -54,7 +54,7 @@ export class CustomersFormComponent implements OnInit {
     this.user.displayName = this.f.name.value;
     this.user.email = this.f.email.value;
     this.user.phoneNumber = this.f.phone.value.replace(/[() ]/g, '');
-    this.user.role = this.f.levelAccess.value;
+    this.user.customClaims = this.f.levelAccess.value;
     this.user.password = this.f.password.value;
 
     this.loading = true;

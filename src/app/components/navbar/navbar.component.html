@@ -7,16 +7,20 @@
     <ul class="navbar-nav align-items-center d-none d-md-flex">
       <li class="nav-item" ngbDropdown placement="bottom-right">
         <!-- <a class="nav-link pr-0" role="button" ngbDropdownToggle> -->
-        <!-- <a class="nav-link pr-0" role="button">
+        <a class="nav-link pr-0" role="button">
           <div class="media align-items-center">
-            <span class="avatar avatar-sm rounded-circle">
-              <img alt="Image placeholder" src="assets/img/theme/team-4-800x800.jpg">
-            </span>
+            <div class="circle-user">{{user.displayName.substring(0,1)}}</div>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">{{company}}</span>
+              <span class="mb-0 text-sm font-weight-bold">{{ user.displayName }}</span>
+              <span class="mb-0">
+                <p class="text-small" *ngIf="user.customClaims.admin">Admin</p>
+                <p class="text-small" *ngIf="user.customClaims.student">Aluno</p>
+                <p class="text-small" *ngIf="user.customClaims.parent">Pais</p>
+                <p class="text-small" *ngIf="user.customClaims.school">Escola</p>
+              </span>
             </div>
           </div>
-        </a> -->
+        </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
           <!-- <div class=" dropdown-header noti-title">
             <h6 class="text-overflow m-0">Bem Vindo!</h6>

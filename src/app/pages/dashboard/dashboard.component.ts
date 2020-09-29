@@ -1,67 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { first } from 'rxjs/operators';
 
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../variables/charts";
-
-import { AlertService } from 'src/app/services/alert.service';
 import { User } from 'src/app/models/user.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
-
+  closeResult: string;
   currentUser: User;
-  public datasets: any;
-  public data: any;
-  public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  user: User;
+  users: any;
+  totalAdmin = 0;
+  totalStudent = 0;
+  totalSchool = 0;
+  totalParent = 0;
 
-  constructor(private alertService: AlertService) { 
+  constructor(private userService: UserService,
+              private modalService: NgbModal) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   ngOnInit() {
+    this.user = this.currentUser;
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+    this.loadAllUsers();
   }
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
+  openXl(content) {
+    this.modalService.open(content, { size: 'xl', backdrop: 'static' });
+  }
+
+  loadAllUsers() {
+    this.userService.getAllUsers()
+      .pipe(first())
+        .subscribe(users => {
+          this.users = users;
+
+          this.users.map(element => {
+            element.customClaims.admin ? this.totalAdmin = this.totalAdmin + 1 : ''
+            element.customClaims.student ? this.totalStudent = this.totalStudent + 1 : ''
+            element.customClaims.school ? this.totalSchool = this.totalSchool + 1 : ''
+            element.customClaims.parent ? this.totalParent = this.totalParent + 1 : ''
+          });
+          
+        });
   }
 
 }

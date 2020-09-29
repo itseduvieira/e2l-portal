@@ -2,3 +2,24 @@
     font-weight: 700;
     color: #333333;
 }
+
+.circle-user {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #5e72e4;
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .navbar-vertical .navbar-brand-img, .navbar-vertical .navbar-brand > img {
+        max-width: 90%;
+        max-height: 2rem;
+    }
+}

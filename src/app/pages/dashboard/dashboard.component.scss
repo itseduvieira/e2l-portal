@@ -1,0 +1,23 @@
+.button-close-modal {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 15px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 40px;
+
+    cursor: pointer;
+}
+
+.button-close-modal:focus {
+    outline: none;
+}

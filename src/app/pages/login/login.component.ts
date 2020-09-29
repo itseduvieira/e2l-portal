@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private userService: UserService) {}
+    private userService: UserService,
+    private authService: AuthenticationService) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -52,17 +53,29 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(this.f.email.value, this.f.password.value)
     .then(data => {
-            this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard']);
 
-            if(!data.user.emailVerified) {
-              this.userService.verifiedEmail(data.user.email)
-                .pipe(first())
-                  .subscribe(() => {
-                    this.alertService.success("Email de verificação foi enviado com sucesso!");
-                  }, err => {
-                    this.alertService.error(err)
-                  })
-            }
+      // if(!data.user.emailVerified) {
+      //   this.authService.verifiedEmail(data.user.email)
+      //     .then(() => {
+      //         this.alertService.success("Email de verificação foi enviado com sucesso!");
+      //     }).catch(err => {
+      //       switch(err.code) {
+      //         case 'auth/user-not-found': {
+      //             this.alertService.error("Email de verificação foi enviado com sucesso!");
+      //             console.log(err);
+      //             this.loading = false;
+      //             break;
+      //         } 
+              
+      //         default: {
+      //           this.alertService.error("Erro ao realizar o envio do email ao usuário. Tente novamente.");
+      //           this.loading = false;
+      //         }
+      //       }
+      //     })
+      // }
+
     }).catch(err => {
       switch(err.code) {
         case 'auth/user-not-found': {

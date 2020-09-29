@@ -6,5 +6,6 @@ export class User {
     password: string;
     phoneNumber: string;
     uid?: string;
-    role: Role;
+    emailVerified?: boolean;
+    customClaims: Role;
 }

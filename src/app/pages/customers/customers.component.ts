@@ -16,7 +16,7 @@ import { AlertService } from 'src/app/services/alert.service';
 export class CustomersComponent implements OnInit {
   selected: Customer;
   users: User[] = [];
-  closeResult: string
+  closeResult: string;
   loading = true;
 
   constructor(private router: Router,
