@@ -30,31 +30,31 @@ export class CustomersFormComponent implements OnInit {
       phone: [null],
       email: [null, [Validators.required, Validators.email]],
       levelAccess: [null, Validators.required],
-      dateBirthday: [null, Validators.required],
+      // dateBirthday: [null, Validators.required],
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmPassword: [null, [Validators.required, Validators.minLength(6)]]
     });
 
-    this.setBirthdayValidator();
+    // this.setBirthdayValidator();
   }
 
-  setBirthdayValidator() {
-    const role = this.formClient.get('levelAccess');
-    const dateBirthday = this.formClient.get('dateBirthday');
+  // setBirthdayValidator() {
+  //   const role = this.formClient.get('levelAccess');
+  //   const dateBirthday = this.formClient.get('dateBirthday');
 
-    role.valueChanges
-      .subscribe(r => {
-        if (r === 'admin' || r === 'school') {
+  //   role.valueChanges
+  //     .subscribe(r => {
+  //       if (r === 'admin' || r === 'school') {
           
-          dateBirthday.setValidators(null);
-        } else {
-          dateBirthday.setValidators([Validators.required]);
-        }
+  //         dateBirthday.setValidators(null);
+  //       } else {
+  //         dateBirthday.setValidators([Validators.required]);
+  //       }
 
-        dateBirthday.updateValueAndValidity();
-      });
+  //       dateBirthday.updateValueAndValidity();
+  //     });
 
-  }
+  // }
 
   get f() {return this.formClient.controls};
 
@@ -75,7 +75,7 @@ export class CustomersFormComponent implements OnInit {
     this.user.phoneNumber = this.f.phone.value.replace(/[() ]/g, '');
     this.user.customClaims = this.f.levelAccess.value;
     this.user.password = this.f.password.value;
-    this.user.dateBirthday = this.f.dateBirthday.value;
+    // this.user.dateBirthday = this.f.dateBirthday.value;
 
     this.loading = true;
 
