@@ -7,5 +7,6 @@ export class User {
     phoneNumber: string;
     uid?: string;
     emailVerified?: boolean;
+    dateBirthday: Date;
     customClaims: Role;
 }

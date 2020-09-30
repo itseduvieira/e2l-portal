@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -21,20 +21,39 @@ export class CustomersFormComponent implements OnInit {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
               private userService: UserService,
               private alertService: AlertService) {}
 
   ngOnInit() {
-
     this.formClient = this.formBuilder.group({
-      name: ['', Validators.required],
-      phone: [''],
-      email: ['', [Validators.required, Validators.email]],
-      levelAccess: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+      name: [null, Validators.required],
+      phone: [null],
+      email: [null, [Validators.required, Validators.email]],
+      levelAccess: [null, Validators.required],
+      dateBirthday: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(6)]],
+      confirmPassword: [null, [Validators.required, Validators.minLength(6)]]
     });
+
+    this.setBirthdayValidator();
+  }
+
+  setBirthdayValidator() {
+    const role = this.formClient.get('levelAccess');
+    const dateBirthday = this.formClient.get('dateBirthday');
+
+    role.valueChanges
+      .subscribe(r => {
+        if (r === 'admin' || r === 'school') {
+          
+          dateBirthday.setValidators(null);
+        } else {
+          dateBirthday.setValidators([Validators.required]);
+        }
+
+        dateBirthday.updateValueAndValidity();
+      });
+
   }
 
   get f() {return this.formClient.controls};
@@ -56,6 +75,7 @@ export class CustomersFormComponent implements OnInit {
     this.user.phoneNumber = this.f.phone.value.replace(/[() ]/g, '');
     this.user.customClaims = this.f.levelAccess.value;
     this.user.password = this.f.password.value;
+    this.user.dateBirthday = this.f.dateBirthday.value;
 
     this.loading = true;
 
@@ -69,7 +89,25 @@ export class CustomersFormComponent implements OnInit {
 
           this.alertService.success('Usuário cadastrado com sucesso.', true);
         }, err => {
-          this.alertService.error(err);
+          switch(err.code) {
+            case 'auth/email-already-exists': {
+                this.alertService.error("Esse email já está cadastrado.");
+                this.loading = false;
+                console.log(err);
+                break;
+            } 
+            case 'auth/phone-number-already-exists': {
+                this.alertService.error("Esse telefone já está cadastrado.");
+                this.loading = false;
+                console.log(err);
+                break;
+            } 
+            
+            default: {
+              this.alertService.error("Erro ao realizar o cadastro do usuário. Tente novamente.");
+              this.loading = false;
+            }
+          }
         })
   }
 

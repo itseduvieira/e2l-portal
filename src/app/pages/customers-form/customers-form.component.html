@@ -42,36 +42,19 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-7">
-                  <div class="form-group">
-                    <label class="form-control-label" for="email">Email *</label>
-                    <input type="email" class="form-control form-control-alternative"
-                      placeholder="sistema@exemplo.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
+              
+              
+              <div class="form-group">
+                <label class="form-control-label" for="email">Email *</label>
+                <input type="email" class="form-control form-control-alternative"
+                  placeholder="sistema@exemplo.com" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>
 
-                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                      <div *ngIf="f.email.errors.required">O email é obrigatório.</div>
-                      <div *ngIf="f.email.errors.email">Digite um email válido.</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-5">
-                  <div class="form-group">
-                    <label class="form-control-label" for="levelAccess">Nível de acesso *</label>
-                    <select class="form-control form-control-alternative" formControlName="levelAccess"
-                    [ngClass]="{ 'is-invalid': submitted && f.levelAccess.errors }">
-                      <option value="admin">Administrador</option>
-                      <option value="student">Estudante</option>
-                      <option value="parent">Pais</option>
-                      <option value="school">Escola</option>
-                    </select>
-
-                    <div *ngIf="submitted && f.levelAccess.errors" class="invalid-feedback">
-                      <div *ngIf="f.levelAccess.errors.required">O nível de acesso é obrigatório.</div>
-                    </div>
-                  </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">O email é obrigatório.</div>
+                  <div *ngIf="f.email.errors.email">Digite um email válido.</div>
                 </div>
               </div>
+
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
@@ -94,6 +77,37 @@
                     <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
                       <div *ngIf="f.confirmPassword.errors.required">A senha é obrigatória.</div>
                       <div *ngIf="f.confirmPassword.errors.minlength">A senha deverá ter mais de 6 caracteres.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-7">
+                  <div class="form-group">
+                    <label class="form-control-label" for="levelAccess">Nível de acesso *</label>
+                    <select class="form-control form-control-alternative" formControlName="levelAccess"
+                    [ngClass]="{ 'is-invalid': submitted && f.levelAccess.errors }">
+                      <option value="admin">Administrador</option>
+                      <option value="student">Estudante</option>
+                      <option value="parent">Pais</option>
+                      <option value="school">Escola</option>
+                    </select>
+
+                    <div *ngIf="submitted && f.levelAccess.errors" class="invalid-feedback">
+                      <div *ngIf="f.levelAccess.errors.required">O nível de acesso é obrigatório.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="f.levelAccess.value === 'parent' || f.levelAccess.value === 'student'" class="col-lg-5">
+                  <div class="form-group">
+                    <label class="form-control-label" for="dateBirthday">Data de Nascimento *</label>
+                    <input type="date" class="form-control form-control-alternative" 
+                    formControlName="dateBirthday" [ngClass]="{ 'is-invalid': submitted && f.dateBirthday.errors }"/>
+                  
+                    <div *ngIf="submitted && f.dateBirthday.errors" class="invalid-feedback">
+                      <div *ngIf="f.dateBirthday.errors.required">A data de aniversário é obrigatória.</div>
                     </div>
                   </div>
                 </div>
