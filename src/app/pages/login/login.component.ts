@@ -55,26 +55,24 @@ export class LoginComponent implements OnInit {
     .then(data => {
       this.router.navigate(['/dashboard']);
 
-      // if(!data.user.emailVerified) {
-      //   this.authService.verifiedEmail(data.user.email)
-      //     .then(() => {
-      //         this.alertService.success("Email de verificação foi enviado com sucesso!");
-      //     }).catch(err => {
-      //       switch(err.code) {
-      //         case 'auth/user-not-found': {
-      //             this.alertService.error("Email de verificação foi enviado com sucesso!");
-      //             console.log(err);
-      //             this.loading = false;
-      //             break;
-      //         } 
+      if(!data.user.emailVerified) {
+        this.authService.verifiedEmail()
+          .then(() => {
+              this.alertService.success("Email de verificação foi enviado com sucesso!");
+          }).catch(err => {
+            switch(err.code) {
+              case 'auth/user-not-found': {
+                  this.alertService.error("Email de verificação foi enviado com sucesso!");
+                  console.log(err);
+                  break;
+              } 
               
-      //         default: {
-      //           this.alertService.error("Erro ao realizar o envio do email ao usuário. Tente novamente.");
-      //           this.loading = false;
-      //         }
-      //       }
-      //     })
-      // }
+              default: {
+                this.alertService.error("Erro ao realizar o envio do email ao usuário. Tente novamente.");
+              }
+            }
+          })
+        }
 
     }).catch(err => {
       switch(err.code) {

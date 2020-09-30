@@ -9,14 +9,14 @@
         <!-- <a class="nav-link pr-0" role="button" ngbDropdownToggle> -->
         <a class="nav-link pr-0" role="button">
           <div class="media align-items-center">
-            <div class="circle-user">{{user.displayName.substring(0,1)}}</div>
+            <div class="circle-user">{{currentUser.displayName.substring(0,1)}}</div>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold">{{ user.displayName }}</span>
+              <span class="mb-0 text-sm font-weight-bold">{{ currentUser.displayName }}</span>
               <span class="mb-0">
-                <p class="text-small" *ngIf="user.customClaims.admin">Admin</p>
-                <p class="text-small" *ngIf="user.customClaims.student">Aluno</p>
-                <p class="text-small" *ngIf="user.customClaims.parent">Pais</p>
-                <p class="text-small" *ngIf="user.customClaims.school">Escola</p>
+                <p class="text-small" *ngIf="currentUser.customClaims.admin">Admin</p>
+                <p class="text-small" *ngIf="currentUser.customClaims.student">Aluno</p>
+                <p class="text-small" *ngIf="currentUser.customClaims.parent">Pais</p>
+                <p class="text-small" *ngIf="currentUser.customClaims.school">Escola</p>
               </span>
             </div>
           </div>

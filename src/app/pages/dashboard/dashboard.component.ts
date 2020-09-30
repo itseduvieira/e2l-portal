@@ -14,8 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 
 export class DashboardComponent implements OnInit {
   closeResult: string;
-  currentUser: User;
-  user: User;
+  currentUser: any;
   users: any;
   totalAdmin = 0;
   totalStudent = 0;
@@ -28,8 +27,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.currentUser;
-
     this.loadAllUsers();
   }
 

@@ -37,8 +37,6 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.currentUser;
-
     if (this.currentUser.customClaims.admin) {
       this.menuItems = ROUTES.filter(menuItem => menuItem);
     } else {

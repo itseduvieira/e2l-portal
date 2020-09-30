@@ -12,7 +12,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col-6 col-lg-8">
-              <h3 class="mb-0">Lista de usuários</h3>
+              <h3 class="mb-0 pl-2">Lista de usuários</h3>
             </div>
             <div class="col-6 col-lg-4 text-right">
               <button class="btn btn-icon btn-3 button-primary" (click)="newCustomer()" type="button">
@@ -26,7 +26,7 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col" style="width:30%">Nome</th>
+                <th scope="col" class="pl-5" style="width:30%">Nome</th>
                 <th scope="col" style="width:30%">Email</th>
                 <th scope="col" style="width:30%">Nivel de Acesso</th>
                 <th scope="col" style="width:10%"></th>
@@ -38,7 +38,7 @@
               </td>
 
               <tr *ngFor="let user of users">
-                <th scope="row">
+                <th scope="row" class="pl-5">
                   {{ user.displayName }}
                 </th>
                 <td>
@@ -56,7 +56,7 @@
                 <td *ngIf="user.customClaims.parent">
                   Pais
                 </td>
-                <td class="text-right">
+                <td class="text-right pr-5">
                   <div ngbDropdown placement="bottom-right">
                     <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
                       <i class="fas fa-ellipsis-v"></i>

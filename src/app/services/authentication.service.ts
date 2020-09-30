@@ -28,9 +28,9 @@ export class AuthenticationService {
     return firebase.auth().sendPasswordResetEmail(emailAddress)
   }
 
-  verifiedEmail(emailAddress) {
+  verifiedEmail() {
     firebase.auth().languageCode = 'pt_BR';
   
-    return firebase.auth().currentUser.sendEmailVerification(emailAddress)
+    return firebase.auth().currentUser.sendEmailVerification()
   }
 }

@@ -22,11 +22,11 @@ export class UserService {
     }
 
     verifiedEmail(email) {
-        return this.http.get<User[]>(`${environment.apiUrl}/user/verificationEmail`, email);
+        return this.http.get<User>(`${environment.apiUrl}/user/verificationEmail`, email);
     }
 
     resetPassword(email) {
-        return this.http.get<User[]>(`${environment.apiUrl}/user`, email);
+        return this.http.get<User>(`${environment.apiUrl}/user`, email);
     }
     
     deleteUser(uid) {
